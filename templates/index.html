@@ -846,10 +846,11 @@
                         dlBtn.href = data.download_url;
                         dlBtn.style.display = 'inline-flex';
                     }
-                    showToast(`Nova versão v${data.latest_version} disponível!`);
+                    showToast(`🚀 Nova versão v${data.latest_version} disponível!`);
                 } else {
                     titleEl.innerText = `✅ Aplicativo Atualizado (v${data.current_version})`;
-                    descEl.innerText = `Você já está usando a versão mais recente do aplicativo no repositório ${data.repo}.`;
+                    descEl.innerText = `Você já está utilizando a versão mais recente (v${data.current_version}) no repositório ${data.repo}. Nenhuma atualização necessária no momento.`;
+                    showToast(`✅ Você já está utilizando a versão mais recente (v${data.current_version})!`);
                 }
             } catch (e) {
                 titleEl.innerText = '❌ Erro de Conexão';
