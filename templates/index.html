@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark" data-palette="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Testes de Telas - AndradeCell</title>
+    <!-- Fonte Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Biblioteca HTML5 QR Code Scanner -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        /* --- TEMA GLOBAL & PALETAS DE CORES PROFISSIONAIS --- */
+        
+        /* 1. Azul Corporativo (Padrão Dark) */
+        html[data-theme="dark"][data-palette="blue"] {
+            --bg-main: #0b0f19;
+            --bg-header: rgba(15, 23, 42, 0.9);
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --bg-input: #0f172a;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #0284c7;
+            --accent-hover: #0369a1;
+            --accent-gradient: linear-gradient(135deg, #0284c7, #2563eb);
+            --badge-bg: rgba(2, 132, 199, 0.15);
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Azul Corporativo (Light) */
+        html[data-theme="light"][data-palette="blue"] {
+            --bg-main: #f1f5f9;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+            --bg-input: #ffffff;
+            --border-color: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-primary: #0284c7;
+            --accent-hover: #0369a1;
+            --accent-gradient: linear-gradient(135deg, #0284c7, #1d4ed8);
+            --badge-bg: rgba(2, 132, 199, 0.1);
+            --shadow-card: 0 4px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 2. Esmeralda Clean (Dark) */
+        html[data-theme="dark"][data-palette="emerald"] {
+            --bg-main: #061a14;
+            --bg-header: rgba(6, 44, 34, 0.9);
+            --bg-card: #0d2820;
+            --bg-card-hover: #163a30;
+            --bg-input: #061a14;
+            --border-color: #1b4d40;
+            --text-primary: #f0fdf4;
+            --text-secondary: #86efac;
+            --accent-primary: #059669;
+            --accent-hover: #047857;
+            --accent-gradient: linear-gradient(135deg, #059669, #10b981);
+            --badge-bg: rgba(5, 150, 105, 0.15);
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Esmeralda Clean (Light) */
+        html[data-theme="light"][data-palette="emerald"] {
+            --bg-main: #f0fdf4;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f7fee7;
+            --bg-input: #ffffff;
+            --border-color: #bbf7d0;
+            --text-primary: #064e3b;
+            --text-secondary: #166534;
+            --accent-primary: #059669;
+            --accent-hover: #047857;
+            --accent-gradient: linear-gradient(135deg, #059669, #16a34a);
+            --badge-bg: rgba(5, 150, 105, 0.1);
+            --shadow-card: 0 4px 15px -3px rgba(5, 150, 105, 0.08);
+        }
+
+        /* 3. Grafite Minimalista (Dark) */
+        html[data-theme="dark"][data-palette="slate"] {
+            --bg-main: #121214;
+            --bg-header: rgba(24, 24, 27, 0.9);
+            --bg-card: #18181b;
+            --bg-card-hover: #27272a;
+            --bg-input: #09090b;
+            --border-color: #27272a;
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --accent-primary: #52525b;
+            --accent-hover: #3f3f46;
+            --accent-gradient: linear-gradient(135deg, #3f3f46, #71717a);
+            --badge-bg: rgba(113, 113, 122, 0.15);
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Grafite Minimalista (Light) */
+        html[data-theme="light"][data-palette="slate"] {
+            --bg-main: #f4f4f5;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafafa;
+            --bg-input: #ffffff;
+            --border-color: #e4e4e7;
+            --text-primary: #18181b;
+            --text-secondary: #71717a;
+            --accent-primary: #27272a;
+            --accent-hover: #18181b;
+            --accent-gradient: linear-gradient(135deg, #27272a, #52525b);
+            --badge-bg: rgba(39, 39, 42, 0.08);
+            --shadow-card: 0 4px 15px -3px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 4. Índigo Enterprise (Dark) */
+        html[data-theme="dark"][data-palette="indigo"] {
+            --bg-main: #0b0d17;
+            --bg-header: rgba(17, 24, 39, 0.9);
+            --bg-card: #1f2937;
+            --bg-card-hover: #374151;
+            --bg-input: #111827;
+            --border-color: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --accent-primary: #4f46e5;
+            --accent-hover: #4338ca;
+            --accent-gradient: linear-gradient(135deg, #4f46e5, #6366f1);
+            --badge-bg: rgba(79, 70, 229, 0.15);
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Índigo Enterprise (Light) */
+        html[data-theme="light"][data-palette="indigo"] {
+            --bg-main: #eef2ff;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f3ff;
+            --bg-input: #ffffff;
+            --border-color: #c7d2fe;
+            --text-primary: #1e1b4b;
+            --text-secondary: #4338ca;
+            --accent-primary: #4f46e5;
+            --accent-hover: #3730a3;
+            --accent-gradient: linear-gradient(135deg, #4f46e5, #4338ca);
+            --badge-bg: rgba(79, 70, 229, 0.1);
+            --shadow-card: 0 4px 15px -3px rgba(79, 70, 229, 0.08);
+        }
+
+        /* Cores Universais de Status */
+        :root {
+            --color-aprovado: #10b981;
+            --color-reprovado: #ef4444;
+            --color-pendente: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header Corporativo */
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 100;
+            padding: 12px 28px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .brand { display: flex; align-items: center; gap: 14px; }
+
+        .brand-icon {
+            width: 44px; height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; font-weight: bold; color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+        .brand-subtitle { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; margin-top: 1px; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-tabs {
+            display: flex; gap: 6px;
+            background-color: var(--bg-input); padding: 4px;
+            border-radius: 10px; border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            background: none; border: none;
+            color: var(--text-secondary);
+            padding: 8px 16px; font-size: 0.88rem; font-weight: 600;
+            border-radius: 8px; cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .tab-btn:hover { color: var(--text-primary); }
+
+        .tab-btn.active {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Seletor de Tema e Paleta */
+        .theme-selector-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--bg-input);
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover { transform: scale(1.15); }
+
+        .palette-select {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .palette-select option {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        /* Container Principal */
+        main {
+            flex: 1; max-width: 1320px; width: 100%;
+            margin: 0 auto; padding: 24px;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.25s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Layout Profissional */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px; margin-bottom: 20px;
+            box-shadow: var(--shadow-card);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card-title {
+            font-size: 0.98rem; font-weight: 700;
+            margin-bottom: 16px; color: var(--text-primary);
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* Grid de Destaque dos 4 Campos Chave */
+        .key-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) { .key-fields-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .key-fields-grid { grid-template-columns: 1fr; } }
+
+        .field-card {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .field-card-label {
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-secondary); margin-bottom: 6px;
+        }
+
+        .field-card-val {
+            font-size: 1.05rem; font-weight: 700; color: var(--text-primary);
+            word-break: break-all; margin-bottom: 10px;
+        }
+
+        .btn-copy-mini {
+            background-color: var(--bg-card-hover);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.75rem; font-weight: 600;
+            padding: 5px 10px; border-radius: 6px; cursor: pointer;
+            transition: all 0.2s ease; align-self: flex-start;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+
+        .btn-copy-mini:hover {
+            background-color: var(--accent-primary); color: #ffffff; border-color: var(--accent-primary);
+        }
+
+        /* Bar Input URL */
+        .url-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+
+        .url-input {
+            flex: 1; min-width: 260px; background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 12px 16px;
+            color: var(--text-primary); font-size: 0.92rem; outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .url-input:focus { border-color: var(--accent-primary); }
+
+        .btn {
+            background-color: var(--bg-card-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px; font-size: 0.88rem; font-weight: 600;
+            border-radius: 8px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: all 0.2s ease; text-decoration: none;
+        }
+
+        .btn:hover { background-color: var(--border-color); transform: translateY(-1px); }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            border: none; color: #ffffff;
+        }
+
+        .btn-primary:hover { opacity: 0.92; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        .btn-mock {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            border: none; color: #ffffff;
+        }
+
+        .btn-mock:hover { opacity: 0.92; }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none; color: #ffffff;
+        }
+
+        .btn-danger {
+            background-color: rgba(239, 68, 68, 0.12); color: var(--color-reprovado);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover { background-color: rgba(239, 68, 68, 0.25); }
+
+        /* Módulo Registro de Teste */
+        .test-status-box {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 16px; margin-top: 16px;
+        }
+
+        .status-options { display: flex; gap: 12px; margin-bottom: 12px; }
+
+        .status-option-btn {
+            flex: 1; padding: 12px; border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card); color: var(--text-secondary);
+            font-weight: 700; font-size: 0.88rem; cursor: pointer; text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .status-option-btn.selected-aprovado {
+            background-color: rgba(16, 185, 129, 0.15); border-color: var(--color-aprovado); color: var(--color-aprovado);
+        }
+
+        .status-option-btn.selected-reprovado {
+            background-color: rgba(239, 68, 68, 0.15); border-color: var(--color-reprovado); color: var(--color-reprovado);
+        }
+
+        .status-option-btn.selected-pendente {
+            background-color: rgba(245, 158, 11, 0.15); border-color: var(--color-pendente); color: var(--color-pendente);
+        }
+
+        .obs-input {
+            width: 100%; background-color: var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 10px 14px; color: var(--text-primary); outline: none;
+            margin-bottom: 12px; font-family: inherit; font-size: 0.88rem;
+        }
+
+        .obs-input:focus { border-color: var(--accent-primary); }
+
+        /* Grid Duplo Scanner */
+        .scanner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 900px) { .scanner-grid { grid-template-columns: 1fr; } }
+
+        #reader {
+            width: 100%; border-radius: 8px; overflow: hidden;
+            border: 1px dashed var(--border-color); background-color: var(--bg-input);
+            min-height: 260px;
+        }
+
+        /* Tabela Detalhada com Botão Copiar em Cada Linha */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        .data-table th, .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-color); text-align: left; }
+        .data-table th { color: var(--text-secondary); font-weight: 600; background-color: var(--bg-input); }
+        .data-table td.val { font-weight: 500; color: var(--text-primary); word-break: break-all; }
+
+        /* Aba Histórico */
+        .history-top {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; flex-wrap: wrap; gap: 12px;
+        }
+
+        .search-box {
+            width: 320px; background-color: var(--bg-input);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 10px 14px; color: var(--text-primary); outline: none; font-size: 0.88rem;
+        }
+
+        .search-box:focus { border-color: var(--accent-primary); }
+
+        .stats-badge {
+            display: flex; gap: 16px; background-color: var(--bg-input);
+            padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color);
+        }
+
+        .stat-item { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); }
+
+        .table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); }
+        .history-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
+        .history-table th { background-color: var(--bg-input); color: var(--text-secondary); padding: 12px 14px; font-weight: 600; }
+        .history-table td { padding: 12px 14px; border-top: 1px solid var(--border-color); color: var(--text-primary); }
+        .history-table tr:hover { background-color: var(--bg-card-hover); }
+
+        .badge-status { padding: 4px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; display: inline-block; }
+        .badge-aprovado { background-color: rgba(16, 185, 129, 0.15); color: var(--color-aprovado); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-reprovado { background-color: rgba(239, 68, 68, 0.15); color: var(--color-reprovado); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-pendente { background-color: rgba(245, 158, 11, 0.15); color: var(--color-pendente); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        /* Toast Notifications */
+        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background-color: var(--accent-primary); color: #ffffff; padding: 12px 20px;
+            border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25); animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <!-- Header Corporativo -->
+    <header>
+        <div class="brand">
+            <div class="brand-icon">📱</div>
+            <div>
+                <div class="brand-title">Controle de Testes de Telas</div>
+                <div class="brand-subtitle">AndradeCell - Casas Bahia</div>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <!-- Navegação de Abas -->
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('scanner')">📱 Leitor & Teste</button>
+                <button class="tab-btn" onclick="switchTab('history')">📋 Relatório de Testes</button>
+            </nav>
+
+            <!-- Botão de Atualização do GitHub -->
+            <button class="btn" style="padding: 6px 12px; font-size: 0.82rem;" onclick="openUpdateModal()" title="Verificar atualizações no GitHub">
+                🔄 <span id="btn-update-label">v1.0.0</span>
+            </button>
+
+            <!-- Seletor de Tema & Paleta -->
+            <div class="theme-selector-box">
+                <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleThemeMode()" title="Alternar Modo Claro / Escuro">🌙</button>
+                <select id="palette-select" class="palette-select" onchange="changePalette(this.value)" title="Selecionar Paleta de Cores">
+                    <option value="blue">🔵 Azul Corporativo</option>
+                    <option value="emerald">🟢 Esmeralda Clean</option>
+                    <option value="slate">⚫ Grafite Minimalista</option>
+                    <option value="indigo">🟣 Índigo Enterprise</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Aba 1: Leitor & Teste de Tela -->
+        <div id="tab-scanner" class="tab-content active">
+            <!-- URL Input Bar + Botão Gerar Nota Exemplo -->
+            <div class="card">
+                <div class="card-title">🔍 Escanear, Consultar ou Simular Nota Fiscal</div>
+                <div class="url-bar">
+                    <input type="text" id="qr-input" class="url-input" placeholder="Cole a URL ou Chave de Acesso do QR Code da nota fiscal...">
+                    <button class="btn" onclick="pasteFromClipboard()">📋 Colar URL</button>
+                    <button class="btn" onclick="clearUrlInput()">❌ Limpar</button>
+                    <button class="btn btn-primary" onclick="consultarUrlManual()">🔎 Consultar Nota</button>
+                    <button class="btn btn-mock" onclick="gerarNotaSimuladaExemplo()">🎲 Testar com Nota Exemplo</button>
+                </div>
+            </div>
+
+            <!-- Destaque dos 4 Campos Chave Solicitados -->
+            <div class="key-fields-grid">
+                <!-- SKU -->
+                <div class="field-card">
+                    <div class="field-card-label">📦 SKU / Código</div>
+                    <div id="disp-sku" class="field-card-val">---</div>
+                    <button class="btn-copy-mini" onclick="copySpecificField('disp-sku', 'SKU')">📋 Copiar SKU</button>
+                </div>
+
+                <!-- Nº Nota -->
+                <div class="field-card">
+                    <div class="field-card-label">🧾 Nº da Nota</div>
+                    <div id="disp-nota" class="field-card-val">---</div>
+                    <button class="btn-copy-mini" onclick="copySpecificField('disp-nota', 'Número da Nota')">📋 Copiar Nota</button>
+                </div>
+
+                <!-- CPF Cliente -->
+                <div class="field-card">
+                    <div class="field-card-label">👤 CPF do Cliente</div>
+                    <div id="disp-cpf" class="field-card-val">---</div>
+                    <button class="btn-copy-mini" onclick="copySpecificField('disp-cpf', 'CPF do Cliente')">📋 Copiar CPF</button>
+                </div>
+
+                <!-- Nome Cliente -->
+                <div class="field-card">
+                    <div class="field-card-label">🏷️ Nome do Cliente</div>
+                    <div id="disp-nome" class="field-card-val">---</div>
+                    <button class="btn-copy-mini" onclick="copySpecificField('disp-nome', 'Nome do Cliente')">📋 Copiar Nome</button>
+                </div>
+            </div>
+
+            <!-- Grid Scanner e Formulário de Teste -->
+            <div class="scanner-grid">
+                <!-- Câmera Scanner Card -->
+                <div class="card">
+                    <div class="card-title">📷 Câmera do Leitor de QR Code</div>
+                    <div style="margin-bottom: 12px; display: flex; gap: 10px;">
+                        <button id="btn-start-cam" class="btn btn-primary" onclick="startCamera()">▶ Ligar Câmera</button>
+                        <button id="btn-stop-cam" class="btn btn-danger" onclick="stopCamera()" style="display: none;">⏹ Desligar Câmera</button>
+                    </div>
+                    <div id="reader"></div>
+                </div>
+
+                <!-- Registro do Teste de Tela Card -->
+                <div class="card">
+                    <div class="card-title" style="justify-content: space-between;">
+                        <span>🧪 Registro do Teste de Tela</span>
+                        <button class="btn btn-success" onclick="copyTabDelimitedData()" title="Copia SKU, Nota, CPF, Nome e Status separados por TAB">
+                            ⌨️ Copiar p/ Sistema (TAB)
+                        </button>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Aparelho / Produto:</span>
+                        <div id="disp-produto" style="font-weight: 700; color: var(--text-primary); margin-top: 2px;">---</div>
+                    </div>
+
+                    <!-- Módulo Seletor de Status do Teste -->
+                    <div class="test-status-box">
+                        <div style="font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: var(--text-secondary);">
+                            Resultado do Teste de Tela:
+                        </div>
+
+                        <div class="status-options">
+                            <div id="opt-aprovado" class="status-option-btn" onclick="selectStatusOption('Aprovado')">
+                                ✅ Aprovado (Tela OK)
+                            </div>
+                            <div id="opt-reprovado" class="status-option-btn" onclick="selectStatusOption('Reprovado')">
+                                ❌ Reprovado (Defeito)
+                            </div>
+                            <div id="opt-pendente" class="status-option-btn selected-pendente" onclick="selectStatusOption('Em Teste')">
+                                ⏳ Em Teste
+                            </div>
+                        </div>
+
+                        <input type="text" id="test-obs" class="obs-input" placeholder="Observações do técnico (ex: Touch OK, riscos, pixel queimado)...">
+                    </div>
+
+                    <div style="margin-top: 14px; display: flex; gap: 10px;">
+                        <button class="btn btn-primary" style="flex: 1;" onclick="saveTestResult()">💾 Salvar Resultado do Teste</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela Detalhada com Botões de Cópia Individual por Linha -->
+            <div class="card">
+                <div class="card-title">📋 Dados Completos da Nota Fiscal (Cópia Linha a Linha)</div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Campo</th>
+                                <th>Valor Identificado</th>
+                                <th style="width: 15%; text-align: center;">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-table-body">
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: var(--text-secondary); padding: 30px;">
+                                    Nenhuma nota consultada no momento.<br>Aponte a câmera, informe uma URL ou clique em <b>"🎲 Testar com Nota Exemplo"</b> acima.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aba 2: Histórico de Relatórios -->
+        <div id="tab-history" class="tab-content">
+            <div class="card">
+                <div class="history-top">
+                    <input type="text" id="search-history" class="search-box" placeholder="🔍 Filtrar por SKU, Nota, CPF ou Status..." oninput="renderHistoryTable()">
+                    
+                    <div class="stats-badge">
+                        <div class="stat-item">
+                            <span>Total Testes:</span>
+                            <span id="stat-total" style="color: var(--accent-primary); font-weight: 800;">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>✅ Aprovados:</span>
+                            <span id="stat-aprovados" style="color: var(--color-aprovado); font-weight: 800;">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>❌ Reprovados:</span>
+                            <span id="stat-reprovados" style="color: var(--color-reprovado); font-weight: 800;">0</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 8px;">
+                        <a href="/api/exportar-csv" class="btn btn-success">💾 Exportar CSV</a>
+                        <button class="btn btn-danger" onclick="clearAllHistory()">🧹 Limpar Histórico</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Nº Nota</th>
+                                <th>CPF Cliente</th>
+                                <th>Nome Cliente</th>
+                                <th>Produto / Aparelho</th>
+                                <th>Status do Teste</th>
+                                <th>Observações</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal GitHub Auto-Updater & Configuração -->
+    <div id="modal-update" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="card" style="width: 90%; max-width: 560px; margin: 0;">
+            <div class="card-title" style="justify-content: space-between;">
+                <span>⚙️ Atualizações e Conexão GitHub</span>
+                <button class="btn" onclick="closeUpdateModal()" style="padding: 4px 10px;">✕</button>
+            </div>
+            
+            <div style="margin-bottom: 16px;">
+                <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">
+                    Repositório do GitHub (usuario/repositorio):
+                </label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="github-repo-input" class="url-input" placeholder="ex: seu-usuario/andradecell-testes" style="font-size: 0.88rem;">
+                    <button class="btn btn-primary" onclick="saveGithubRepo()">💾 Salvar</button>
+                </div>
+                <span style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 6px; display: block;">
+                    Informe o caminho do seu repositório no GitHub para buscar novas versões automaticamente.
+                </span>
+            </div>
+
+            <div id="update-status-box" style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 4px;" id="update-status-title">
+                    Verificando status de versão...
+                </div>
+                <div style="font-size: 0.84rem; color: var(--text-secondary);" id="update-status-desc">
+                    Clique em "Buscar Atualizações no Git" para checar a versão mais recente.
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-primary" onclick="checkAppUpdates()">🔎 Buscar Atualizações no Git</button>
+                <a id="btn-download-update" href="#" target="_blank" class="btn btn-success" style="display: none;">🚀 Baixar Nova Versão</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script>
+        let html5QrcodeScanner = null;
+        let currentResultData = null;
+        let currentStatusSelected = 'Em Teste';
+        let historyRecords = [];
+
+        // --- GERENCIAMENTO DE TEMAS E PALETAS ---
+        function initThemeSettings() {
+            const savedTheme = localStorage.getItem('app_theme_mode') || 'dark';
+            const savedPalette = localStorage.getItem('app_theme_palette') || 'blue';
+
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.setAttribute('data-palette', savedPalette);
+
+            document.getElementById('theme-toggle-btn').innerText = savedTheme === 'dark' ? '🌙' : '☀️';
+            document.getElementById('palette-select').value = savedPalette;
+        }
+
+        function toggleThemeMode() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('app_theme_mode', newTheme);
+            document.getElementById('theme-toggle-btn').innerText = newTheme === 'dark' ? '🌙' : '☀️';
+            showToast(`Modo ${newTheme === 'dark' ? 'Escuro' : 'Claro'} ativado.`);
+        }
+
+        function changePalette(paletteName) {
+            document.documentElement.setAttribute('data-palette', paletteName);
+            localStorage.setItem('app_theme_palette', paletteName);
+            showToast('Paleta de cores alterada!');
+        }
+
+        // --- SISTEMA DE ATUALIZAÇÕES DO GITHUB ---
+        async function checkAppVersionOnLoad() {
+            try {
+                const resp = await fetch('/api/versao');
+                const data = await resp.json();
+                if (data.success) {
+                    const v = data.info.version || '1.0.0';
+                    document.getElementById('btn-update-label').innerText = `v${v}`;
+                    if (data.info.github_repo) {
+                        document.getElementById('github-repo-input').value = data.info.github_repo;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function openUpdateModal() {
+            document.getElementById('modal-update').style.display = 'flex';
+            checkAppUpdates();
+        }
+
+        function closeUpdateModal() {
+            document.getElementById('modal-update').style.display = 'none';
+        }
+
+        async function saveGithubRepo() {
+            const repo = document.getElementById('github-repo-input').value.trim();
+            if (!repo) {
+                showToast('Informe o repositório do GitHub.');
+                return;
+            }
+            try {
+                const resp = await fetch('/api/versao', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ github_repo: repo })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    showToast('Repositório GitHub salvo!');
+                    checkAppUpdates();
+                }
+            } catch (e) {
+                showToast('Erro ao salvar repositório.');
+            }
+        }
+
+        async function checkAppUpdates() {
+            const titleEl = document.getElementById('update-status-title');
+            const descEl = document.getElementById('update-status-desc');
+            const dlBtn = document.getElementById('btn-download-update');
+
+            titleEl.innerText = 'Consultando GitHub API...';
+            descEl.innerText = 'Buscando lançamentos e versões no GitHub...';
+            dlBtn.style.display = 'none';
+
+            try {
+                const resp = await fetch('/api/verificar-atualizacao');
+                const data = await resp.json();
+
+                if (!data.configured) {
+                    titleEl.innerText = '⚙️ Configuração Necessária';
+                    descEl.innerText = data.message;
+                    return;
+                }
+
+                if (!data.success) {
+                    titleEl.innerText = '⚠️ Aviso de Atualização';
+                    descEl.innerText = data.message;
+                    return;
+                }
+
+                if (data.has_update) {
+                    titleEl.innerText = `🚀 Nova Versão Disponível: v${data.latest_version}`;
+                    descEl.innerText = `Sua versão atual é v${data.current_version}. Há uma nova versão pronta no repositório ${data.repo}!`;
+                    if (data.download_url) {
+                        dlBtn.href = data.download_url;
+                        dlBtn.style.display = 'inline-flex';
+                    }
+                    showToast(`Nova versão v${data.latest_version} disponível!`);
+                } else {
+                    titleEl.innerText = `✅ Aplicativo Atualizado (v${data.current_version})`;
+                    descEl.innerText = `Você já está usando a versão mais recente do aplicativo no repositório ${data.repo}.`;
+                }
+            } catch (e) {
+                titleEl.innerText = '❌ Erro de Conexão';
+                descEl.innerText = 'Não foi possível conectar ao GitHub.';
+            }
+        }
+
+        // Executa inicialização ao carregar
+        initThemeSettings();
+        checkAppVersionOnLoad();
+
+        // Troca de Abas
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tabName === 'scanner') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-scanner').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+                loadHistory();
+            }
+        }
+
+        // Toasts
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 2800);
+        }
+
+        function copySpecificField(elementId, fieldName) {
+            const text = document.getElementById(elementId).innerText.trim();
+            if (!text || text === '---') {
+                showToast(`Nenhum ${fieldName} disponível.`);
+                return;
+            }
+            navigator.clipboard.writeText(text);
+            showToast(`${fieldName} copiado: "${text}"`);
+        }
+
+        function copyRawText(text, fieldLabel) {
+            if (!text) return;
+            navigator.clipboard.writeText(text);
+            showToast(`${fieldLabel} copiado!`);
+        }
+
+        function copyTabDelimitedData() {
+            if (!currentResultData) {
+                showToast('Nenhum teste ativo para copiar.');
+                return;
+            }
+            const sku = currentResultData.sku || '';
+            const nota = currentResultData.numero_nota || '';
+            const cpf = currentResultData.cpf_consumidor || '';
+            const nome = currentResultData.nome_consumidor || '';
+            const status = currentStatusSelected || 'Em Teste';
+
+            const tabString = `${sku}\t${nota}\t${cpf}\t${nome}\t${status}`;
+            navigator.clipboard.writeText(tabString);
+            showToast('Dados copiados delimitados por TAB! Pronto para colar no sistema.');
+        }
+
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    document.getElementById('qr-input').value = text.trim();
+                    showToast('URL colada com sucesso!');
+                }
+            } catch (err) {
+                showToast('Não foi possível acessar a área de transferência.');
+            }
+        }
+
+        function clearUrlInput() {
+            document.getElementById('qr-input').value = '';
+        }
+
+        function selectStatusOption(status) {
+            currentStatusSelected = status;
+            document.getElementById('opt-aprovado').className = 'status-option-btn' + (status === 'Aprovado' ? ' selected-aprovado' : '');
+            document.getElementById('opt-reprovado').className = 'status-option-btn' + (status === 'Reprovado' ? ' selected-reprovado' : '');
+            document.getElementById('opt-pendente').className = 'status-option-btn' + (status === 'Em Teste' ? ' selected-pendente' : '');
+        }
+
+        async function consultarUrlManual() {
+            const url = document.getElementById('qr-input').value.trim();
+            if (!url) {
+                alert('Por favor, informe ou cole a URL ou Chave da nota primeiro.');
+                return;
+            }
+
+            const isUrl = url.startsWith('http://') || url.startsWith('https://');
+            const has44Digits = /\d{44}/.test(url);
+
+            if (!isUrl && !has44Digits) {
+                alert('Entrada inválida!\nPor favor, insira um link de QR Code válido (iniciando com http:// ou https://) ou uma Chave de Acesso de 44 dígitos.');
+                return;
+            }
+
+            showToast('Consultando dados da nota fiscal...');
+            try {
+                const resp = await fetch('/api/consultar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ qr_url: url })
+                });
+                const result = await resp.json();
+
+                if (result.success) {
+                    currentResultData = result.data;
+                    renderCurrentResult(result.data, result.fields_map);
+                    showToast('Dados da nota carregados!');
+                } else {
+                    alert('Erro na consulta: ' + (result.error || 'Desconhecido'));
+                }
+            } catch (err) {
+                alert('Falha na comunicação com o servidor: ' + err);
+            }
+        }
+
+        async function gerarNotaSimuladaExemplo() {
+            showToast('Gerando nota de teste aleatória (Casas Bahia)...');
+            try {
+                const resp = await fetch('/api/gerar-nota-teste');
+                const result = await resp.json();
+                if (result.success) {
+                    currentResultData = result.data;
+                    document.getElementById('qr-input').value = result.data.qr_url || '';
+                    renderCurrentResult(result.data, result.fields_map);
+                    showToast('🎲 Nota de teste simulada com sucesso!');
+                }
+            } catch (err) {
+                alert('Erro ao gerar nota simulada: ' + err);
+            }
+        }
+
+        function renderCurrentResult(data, fieldsMap) {
+            document.getElementById('disp-sku').innerText = data.sku || 'N/A';
+            document.getElementById('disp-nota').innerText = data.numero_nota || '---';
+            document.getElementById('disp-cpf').innerText = data.cpf_consumidor || 'Não informado';
+            document.getElementById('disp-nome').innerText = data.nome_consumidor || 'Cliente';
+            document.getElementById('disp-produto').innerText = data.produto_descricao || 'Dispositivo / Tela';
+
+            selectStatusOption(data.status_teste || 'Em Teste');
+            document.getElementById('test-obs').value = data.observacoes_teste || '';
+
+            const tbody = document.getElementById('result-table-body');
+            tbody.innerHTML = '';
+
+            for (const [key, label] of Object.entries(fieldsMap)) {
+                const val = data[key];
+                if (val) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight: 600;">${label}</td>
+                        <td class="val">${val}</td>
+                        <td style="text-align: center;">
+                            <button class="btn-copy-mini" onclick="copyRawText('${val.replace(/'/g, "\\'")}', '${label}')">📋 Copiar</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            }
+        }
+
+        async function saveTestResult() {
+            if (!currentResultData) {
+                showToast('Nenhum teste carregado para salvar.');
+                return;
+            }
+            const obs = document.getElementById('test-obs').value.trim();
+            currentResultData.status_teste = currentStatusSelected;
+            currentResultData.observacoes_teste = obs;
+
+            await loadHistory();
+            const idx = historyRecords.findIndex(r => r.chave_acesso === currentResultData.chave_acesso);
+
+            if (idx !== -1) {
+                await fetch('/api/historico/atualizar-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ index: idx, status: currentStatusSelected, observacoes: obs })
+                });
+                showToast(`Teste registrado como: ${currentStatusSelected}`);
+            } else {
+                showToast('Teste salvo com sucesso!');
+            }
+        }
+
+        function startCamera() {
+            document.getElementById('btn-start-cam').style.display = 'none';
+            document.getElementById('btn-stop-cam').style.display = 'inline-flex';
+
+            html5QrcodeScanner = new Html5Qrcode("reader");
+            html5QrcodeScanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (decodedText) => {
+                    document.getElementById('qr-input').value = decodedText;
+                    showToast('QR Code detectado!');
+                    stopCamera();
+                    consultarUrlManual();
+                },
+                (errorMessage) => {}
+            ).catch(err => {
+                alert("Erro ao iniciar câmera: " + err);
+                stopCamera();
+            });
+        }
+
+        function stopCamera() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner.clear();
+                    document.getElementById('btn-start-cam').style.display = 'inline-flex';
+                    document.getElementById('btn-stop-cam').style.display = 'none';
+                }).catch(err => {
+                    document.getElementById('btn-start-cam').style.display = 'inline-flex';
+                    document.getElementById('btn-stop-cam').style.display = 'none';
+                });
+            }
+        }
+
+        async function loadHistory() {
+            try {
+                const resp = await fetch('/api/historico');
+                const data = await resp.json();
+                if (data.success) {
+                    historyRecords = data.records || [];
+                    renderHistoryTable();
+                }
+            } catch (err) {
+                console.error("Erro ao carregar histórico:", err);
+            }
+        }
+
+        function renderHistoryTable() {
+            const tbody = document.getElementById('history-table-body');
+            tbody.innerHTML = '';
+
+            const filter = document.getElementById('search-history').value.toLowerCase().trim();
+            let countTotal = 0;
+            let countAprovados = 0;
+            let countReprovados = 0;
+
+            historyRecords.forEach((rec, idx) => {
+                const sku = rec.sku || 'N/A';
+                const nota = rec.numero_nota || '';
+                const cpf = rec.cpf_consumidor || '';
+                const nome = rec.nome_consumidor || '';
+                const prod = rec.produto_descricao || '';
+                const status = rec.status_teste || 'Em Teste';
+                const obs = rec.observacoes_teste || '';
+
+                if (filter) {
+                    const haystack = `${sku} ${nota} ${cpf} ${nome} ${prod} ${status} ${obs}`.toLowerCase();
+                    if (!haystack.includes(filter)) return;
+                }
+
+                countTotal++;
+                if (status === 'Aprovado') countAprovados++;
+                if (status === 'Reprovado') countReprovados++;
+
+                let badgeClass = 'badge-pendente';
+                if (status === 'Aprovado') badgeClass = 'badge-aprovado';
+                if (status === 'Reprovado') badgeClass = 'badge-reprovado';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 700; color: var(--accent-primary);">${sku}</td>
+                    <td style="font-weight: 600;">${nota}</td>
+                    <td>${cpf}</td>
+                    <td>${nome}</td>
+                    <td style="font-size: 0.82rem; color: var(--text-secondary);">${prod}</td>
+                    <td><span class="badge-status ${badgeClass}">${status}</span></td>
+                    <td style="font-size: 0.82rem; color: var(--text-secondary);">${obs}</td>
+                    <td>
+                        <button class="btn-copy-mini" onclick="copyRawText('${sku}', 'SKU')">📋 SKU</button>
+                        <button class="btn-copy-mini" onclick="copyRawText('${nota}', 'Nota')">📋 Nota</button>
+                        <button class="btn-copy-mini" onclick="copyRawText('${cpf}', 'CPF')">📋 CPF</button>
+                        <button class="btn-copy-mini" onclick="deleteHistoryItem(${idx})" style="color: var(--color-reprovado);">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('stat-total').innerText = countTotal;
+            document.getElementById('stat-aprovados').innerText = countAprovados;
+            document.getElementById('stat-reprovados').innerText = countReprovados;
+        }
+
+        async function deleteHistoryItem(idx) {
+            if (confirm('Deseja remover este registro de teste do histórico?')) {
+                await fetch('/api/historico/deletar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ index: idx })
+                });
+                showToast('Registro removido!');
+                loadHistory();
+            }
+        }
+
+        async function clearAllHistory() {
+            if (confirm('Tem certeza de que deseja apagar TODO o histórico de testes?')) {
+                await fetch('/api/historico/limpar', { method: 'POST' });
+                showToast('Histórico de testes limpo!');
+                loadHistory();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Compilação PyInstaller
+build/
+dist/
+*.spec
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Repositórios clonados / pastas temporárias
+andradecell-testes/
+
+# Banco de dados e histórico local de testes
+historico_testes_telas.json
+
+# IDEs e sistema
+.vscode/
+.idea/
+*.log
